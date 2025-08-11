@@ -1,53 +1,90 @@
-# talents2germany-salary-view
+# Talents2Germany Salary View
 
-Custom Salary view for Admin with Laravel (backend) and Next.js 14 + Tailwind (frontend). This repository is a monorepo containing two projects: `backend/` and `frontend/`.
+This is a monorepo project containing a Laravel backend API and a Next.js frontend for managing employee salary information.
 
-## Structure
+## Project Structure
 
 ```
-.
-├── backend/   # Laravel API
-└── frontend/  # Next.js 14 (App Router, TS, Tailwind)
+talents2germany-salary-view/
+├── backend/          # Laravel API
+│   ├── app/         # Laravel application code
+│   ├── config/      # Configuration files
+│   ├── database/    # Database migrations and seeds
+│   ├── routes/      # API routes
+│   └── ...          # Other Laravel files
+└── frontend/        # Next.js frontend
+    ├── app/         # Next.js app router pages
+    ├── components/  # React components
+    ├── lib/         # Utility functions
+    └── ...          # Other Next.js files
 ```
 
 ## Requirements
 
 - PHP 8.2+
-- Composer 2+
+- Composer
 - Node.js 18+
-- pnpm 10+ (frontend package manager)
+- pnpm 10.14.0
+- MySQL 8.0+ (for backend)
 
-## Backend (Laravel)
+## Setup Instructions
 
-1) Install PHP dependencies (already installed by scaffolding; run again if needed):
+### Backend (Laravel API)
 
-```
-cd backend
-composer install
-```
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
 
-2) Environment:
+2. Install PHP dependencies:
+   ```bash
+   composer install
+   ```
 
-- Copy `.env.example` to `.env` and adjust as needed (SQLite is ready by default):
+3. Configure environment variables:
+   - Copy `.env.example` to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Update database configuration in `.env` to match your MySQL setup:
+     ```
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=talents2germany
+     DB_USERNAME=root
+     DB_PASSWORD=password
+     ```
 
-```
-cp .env.example .env
-php artisan key:generate
-```
+4. Generate application key:
+   ```bash
+   php artisan key:generate
+   ```
 
-3) Run migrations (done during scaffold, run again if necessary):
+5. Run database migrations:
+   ```bash
+   php artisan migrate
+   ```
 
-```
-php artisan migrate
-```
+6. Start the Laravel development server:
+   ```bash
+   php artisan serve
+   ```
+   The API will be available at `http://localhost:8000`.
 
-4) Start the server:
+### API Testing with Postman
 
-```
-php artisan serve
-```
+To easily test the backend API endpoints, you can import the provided Postman collection:
 
-Backend URL: http://localhost:8000
+1. Open Postman
+2. Click "Import" in the top left
+3. Select the `Talents2Germany-Salary-API.postman_collection.json` file from the project root
+4. All endpoints are pre-configured with proper headers and sample data
+
+The collection includes endpoints for:
+- Health check
+- Employee management (CRUD operations)
+
 
 Health endpoint: http://localhost:8000/api/health
 
