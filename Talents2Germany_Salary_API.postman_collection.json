@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e852fc29-a07c-44f3-836b-d3be7ab6603d",
+		"_postman_id": "talents2germany-salary-api",
 		"name": "Talents2Germany Salary API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"description": "API endpoints for the Talents2Germany salary management system"
+		"description": "API collection for Talents2Germany salary management system"
 	},
 	"item": [
 		{
@@ -20,21 +20,15 @@
 						"api",
 						"health"
 					]
-				},
-				"description": "Check if the API is running"
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get All Employees",
+			"name": "List Employees",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{base_url}}/api/employees",
 					"host": [
@@ -44,28 +38,23 @@
 						"api",
 						"employees"
 					]
-				},
-				"description": "Retrieve a paginated list of all employees"
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "Create Employee",
+			"name": "Create/Update Employee",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"role\": \"Developer\",\n  \"salary\": 5000.00\n}"
+					"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"role\": \"developer\",\n  \"salary_in_local_currency\": 50000\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/api/employees",
@@ -76,8 +65,7 @@
 						"api",
 						"employees"
 					]
-				},
-				"description": "Create a new employee record"
+				}
 			},
 			"response": []
 		},
@@ -85,12 +73,7 @@
 			"name": "Get Employee",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{base_url}}/api/employees/:id",
 					"host": [
@@ -107,8 +90,7 @@
 							"value": "1"
 						}
 					]
-				},
-				"description": "Retrieve a specific employee by ID"
+				}
 			},
 			"response": []
 		},
@@ -120,15 +102,11 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"John Doe Updated\",\n  \"email\": \"john.doe@example.com\",\n  \"role\": \"Senior Developer\",\n  \"salary\": 6000.00\n}"
+					"raw": "{\n  \"name\": \"John Smith\",\n  \"role\": \"senior developer\"\n}"
 				},
 				"url": {
 					"raw": "{{base_url}}/api/employees/:id",
@@ -146,8 +124,7 @@
 							"value": "1"
 						}
 					]
-				},
-				"description": "Update an existing employee record"
+				}
 			},
 			"response": []
 		},
@@ -155,12 +132,7 @@
 			"name": "Delete Employee",
 			"request": {
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{base_url}}/api/employees/:id",
 					"host": [
@@ -177,10 +149,69 @@
 							"value": "1"
 						}
 					]
-				},
-				"description": "Delete an employee record"
+				}
 			},
 			"response": []
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "List All Employees (Admin)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/admin/employees",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employee Salary (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"salary_in_euros\": 45000,\n  \"commission\": 1000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/admin/employees/:id/salary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"employees",
+								":id",
+								"salary"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

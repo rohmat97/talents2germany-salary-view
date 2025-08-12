@@ -35,14 +35,32 @@ class EmployeeController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:employees,email'],
+            'email' => ['required', 'email', 'max:255'],
             'role' => ['required', 'string', 'max:255'],
-            'salary' => ['required', 'numeric', 'min:0'],
+            'salary_in_local_currency' => ['required', 'numeric', 'min:0'],
         ]);
 
-        $employee = Employee::create($data);
+        // Check if employee with this email already exists
+        $employee = Employee::where('email', $data['email'])->first();
 
-        return response()->json($employee, 201);
+        if ($employee) {
+            // Update existing employee record
+            $employee->update([
+                'name' => $data['name'],
+                'role' => $data['role'],
+                'salary_in_local_currency' => $data['salary_in_local_currency'],
+            ]);
+
+            return response()->json($employee, 200);
+        } else {
+            // Create new employee record with unique email validation
+            $data['email'] = $request->validate([
+                'email' => ['required', 'email', 'max:255', 'unique:employees,email'],
+            ])['email'];
+
+            $employee = Employee::create($data);
+            return response()->json($employee, 201);
+        }
     }
 
     /**
