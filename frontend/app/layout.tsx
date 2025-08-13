@@ -18,9 +18,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-new-gr-c-s-check-loaded="14.1093.0" data-gr-ext-installed="">
       <body
         className={`${inter.variable} antialiased`}
+        data-new-gr-c-s-check-loaded="14.1093.0"
+        data-gr-ext-installed=""
       >
         {children}
       </body>

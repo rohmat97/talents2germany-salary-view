@@ -30,6 +30,16 @@ export default function Navigation() {
               Home
             </Link>
             <Link 
+              href="/user/form" 
+              className={`px-3 py-2 rounded-md text-sm font-medium ${
+                pathname === "/user/form" 
+                  ? "text-blue-600 dark:text-blue-400" 
+                  : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
+              }`}
+            >
+              Submit Salary
+            </Link>
+            <Link 
               href="/admin/salaries" 
               className={`px-3 py-2 rounded-md text-sm font-medium ${
                 pathname === "/admin/salaries" 

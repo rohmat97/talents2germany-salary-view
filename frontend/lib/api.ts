@@ -8,7 +8,11 @@ export function getApiBaseUrl() {
 
 export async function apiGet<T>(path: string, init?: RequestInit): Promise<T> {
   const base = getApiBaseUrl();
-  const res = await fetch(`${base}${path}`, {
+  // Add bypass_auth for testing purposes
+  const separator = path.includes('?') ? '&' : '?';
+  const url = `${base}${path}${separator}bypass_auth=1`;
+  
+  const res = await fetch(url, {
     ...init,
     method: 'GET',
     headers: {
@@ -20,6 +24,52 @@ export async function apiGet<T>(path: string, init?: RequestInit): Promise<T> {
   if (!res.ok) {
     const text = await res.text();
     throw new Error(`GET ${path} failed: ${res.status} ${res.statusText} - ${text}`);
+  }
+  return res.json() as Promise<T>;
+}
+
+export async function apiPost<T>(path: string, data: any, init?: RequestInit): Promise<T> {
+  const base = getApiBaseUrl();
+  // Add bypass_auth for testing purposes
+  const separator = path.includes('?') ? '&' : '?';
+  const url = `${base}${path}${separator}bypass_auth=1`;
+  
+  const res = await fetch(url, {
+    ...init,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      ...(init?.headers || {}),
+    },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`POST ${path} failed: ${res.status} ${res.statusText} - ${text}`);
+  }
+  return res.json() as Promise<T>;
+}
+
+export async function apiPut<T>(path: string, data: any, init?: RequestInit): Promise<T> {
+  const base = getApiBaseUrl();
+  // Add bypass_auth for testing purposes
+  const separator = path.includes('?') ? '&' : '?';
+  const url = `${base}${path}${separator}bypass_auth=1`;
+  
+  const res = await fetch(url, {
+    ...init,
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      ...(init?.headers || {}),
+    },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`PUT ${path} failed: ${res.status} ${res.statusText} - ${text}`);
   }
   return res.json() as Promise<T>;
 }
