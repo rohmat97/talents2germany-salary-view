@@ -2,6 +2,13 @@
 
 This is a monorepo project containing a Laravel backend API and a Next.js frontend for managing employee salary information.
 
+## Recent Enhancements
+
+- Enhanced user salary submission form with improved UI and toast notifications
+- Added responsive design with proper viewport configuration
+- Integrated backend status monitoring on user form page
+- Added fade-in animations for toast notifications
+
 ## Project Structure
 
 ```
@@ -15,6 +22,7 @@ talents2germany-salary-view/
 └── frontend/        # Next.js frontend
     ├── app/         # Next.js app router pages
     ├── components/  # React components
+    ├── hooks/       # Custom React hooks
     ├── lib/         # Utility functions
     └── ...          # Other Next.js files
 ```

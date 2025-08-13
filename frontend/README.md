@@ -1,24 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Talents2Germany Salary Management Frontend
+
+This is a Next.js frontend for the Talents2Germany Salary Management application.
+
+## Features
+
+- User salary submission form with validation
+- Admin panel for managing employee salary data
+- Responsive design for mobile and desktop
+- Backend status monitoring
+- Toast notifications for user feedback
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/` - Next.js app router pages
+  - `user/form/` - User salary submission form
+  - `admin/salaries/` - Admin employee salary management
+- `components/` - Reusable React components
+- `hooks/` - Custom React hooks for data fetching
+- `lib/` - Utility functions and API helpers
+
+This project uses Tailwind CSS for styling and responsive design.
 
 ## Learn More
 
