@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Navigation from "../components/Navigation";
+import FeatureCard from "../components/FeatureCard";
 
 export default function Home() {
   return (
@@ -37,26 +38,17 @@ export default function Home() {
         </div>
         
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-zinc-900 dark:text-white mb-3">Employee Management</h2>
-            <p className="text-zinc-600 dark:text-zinc-300">
-              Easily manage employee information, including personal details, position, and department.
-            </p>
-          </div>
+          <FeatureCard title="Employee Management">
+            Easily manage employee information, including personal details, position, and department.
+          </FeatureCard>
           
-          <div className="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-zinc-900 dark:text-white mb-3">Salary Tracking</h2>
-            <p className="text-zinc-600 dark:text-zinc-300">
-              Keep track of employee salaries, bonuses, and other compensation details in one place.
-            </p>
-          </div>
+          <FeatureCard title="Salary Tracking">
+            Keep track of employee salaries, bonuses, and other compensation details in one place.
+          </FeatureCard>
           
-          <div className="bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-zinc-900 dark:text-white mb-3">Reporting</h2>
-            <p className="text-zinc-600 dark:text-zinc-300">
-              Generate detailed reports on salary distributions, trends, and analytics.
-            </p>
-          </div>
+          <FeatureCard title="Data Security">
+            Ensure sensitive salary information is securely stored and accessible only to authorized personnel.
+          </FeatureCard>
         </div>
       </main>
       

@@ -73,3 +73,30 @@ export async function apiPut<T>(path: string, data: any, init?: RequestInit): Pr
   }
   return res.json() as Promise<T>;
 }
+
+export async function apiDelete<T>(path: string, init?: RequestInit): Promise<T> {
+  const base = getApiBaseUrl();
+  // Add bypass_auth for testing purposes
+  const separator = path.includes('?') ? '&' : '?';
+  const url = `${base}${path}${separator}bypass_auth=1`;
+  
+  const res = await fetch(url, {
+    ...init,
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      ...(init?.headers || {}),
+    },
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`DELETE ${path} failed: ${res.status} ${res.statusText} - ${text}`);
+  }
+  
+  // Handle 204 No Content response
+  if (res.status === 204) {
+    return null as T;
+  }
+  
+  return res.json() as Promise<T>;
+}

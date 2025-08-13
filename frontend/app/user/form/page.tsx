@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
-import { apiPost } from "@/lib/api";
+import { useEmployeeSubmission } from "@/hooks/useEmployeeSubmission";
 
 export default function UserSalaryForm() {
   const [formData, setFormData] = useState({
@@ -11,9 +11,7 @@ export default function UserSalaryForm() {
     salary_in_local_currency: "",
   });
   
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { loading, success, error, submitEmployee } = useEmployeeSubmission();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,18 +20,9 @@ export default function UserSalaryForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
 
     try {
-      const result = await apiPost("/api/employees", {
-        name: formData.name,
-        email: formData.email,
-        salary_in_local_currency: parseFloat(formData.salary_in_local_currency),
-        role: "Employee" // Default role
-      });
-      setSuccess(true);
+      await submitEmployee(formData);
       // Reset form
       setFormData({
         name: "",
@@ -41,9 +30,8 @@ export default function UserSalaryForm() {
         salary_in_local_currency: "",
       });
     } catch (err: any) {
-      setError(err.message || "An error occurred");
-    } finally {
-      setLoading(false);
+      // Error is handled in the hook
+      console.error("Submission error:", err);
     }
   };
 
@@ -61,10 +49,19 @@ export default function UserSalaryForm() {
           </p>
 
           {success && (
-            <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-green-800 dark:text-green-200">
-                Your salary information has been successfully submitted!
-              </p>
+            <div className="rounded-md bg-green-50 p-4">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-green-800">
+                    Salary data submitted successfully!
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 

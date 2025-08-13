@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import NavLink from "./NavLink";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -19,36 +20,9 @@ export default function Navigation() {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <Link 
-              href="/" 
-              className={`px-3 py-2 rounded-md text-sm font-medium ${
-                pathname === "/" 
-                  ? "text-blue-600 dark:text-blue-400" 
-                  : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
-              }`}
-            >
-              Home
-            </Link>
-            <Link 
-              href="/user/form" 
-              className={`px-3 py-2 rounded-md text-sm font-medium ${
-                pathname === "/user/form" 
-                  ? "text-blue-600 dark:text-blue-400" 
-                  : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
-              }`}
-            >
-              Submit Salary
-            </Link>
-            <Link 
-              href="/admin/salaries" 
-              className={`px-3 py-2 rounded-md text-sm font-medium ${
-                pathname === "/admin/salaries" 
-                  ? "text-blue-600 dark:text-blue-400" 
-                  : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
-              }`}
-            >
-              Admin Salaries
-            </Link>
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/user/form">Submit Salary</NavLink>
+            <NavLink href="/admin/salaries">Admin Salaries</NavLink>
           </div>
         </div>
       </div>
